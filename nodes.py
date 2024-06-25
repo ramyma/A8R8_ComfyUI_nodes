@@ -3,6 +3,11 @@ from PIL import Image
 import torch
 import numpy as np
 import io
+from .attention_couple import (
+    AttentionCouple,
+    AttentionCoupleRegion,
+    AttentionCoupleRegions,
+)
 
 
 class Base64ImageInput:
@@ -13,7 +18,7 @@ class Base64ImageInput:
     def INPUT_TYPES(s):
         return {
             "required": {
-                "bas64_image": ("STRING", {"multiline": False, "default": ""}),
+                "base64_image": ("STRING", {"multiline": False, "default": ""}),
             },
         }
 
@@ -23,9 +28,9 @@ class Base64ImageInput:
 
     CATEGORY = "A8R8"
 
-    def process_input(self, bas64_image):
-        if bas64_image:
-            image_bytes = base64.b64decode(bas64_image)
+    def process_input(self, base64_image):
+        if base64_image:
+            image_bytes = base64.b64decode(base64_image)
 
             # Open the image from bytes
             image = Image.open(io.BytesIO(image_bytes))
@@ -75,10 +80,16 @@ class Base64ImageOutput:
 NODE_CLASS_MAPPINGS = {
     "Base64ImageInput": Base64ImageInput,
     "Base64ImageOutput": Base64ImageOutput,
+    "AttentionCouple": AttentionCouple,
+    "AttentionCoupleRegion": AttentionCoupleRegion,
+    "AttentionCoupleRegions": AttentionCoupleRegions,
 }
 
 # A dictionary that contains the friendly/humanly readable titles for the nodes
 NODE_DISPLAY_NAME_MAPPINGS = {
     "Base64ImageInput": "Base64Image Input Node",
     "Base64ImageOutput": "Base64Image Output Node",
+    "AttentionCouple": "Attention Couple",
+    "AttentionCoupleRegion": "Attention Couple Region",
+    "AttentionCoupleRegions": "Attention Couple Regions",
 }
