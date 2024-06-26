@@ -3,6 +3,7 @@
 [A8R8](https://github.com/ramyma/a8r8) supporting nodes to integrate with [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 
 ****2024/06/26:** Added Attention Couple nodes for regional prompting [example](examples/attention_couple.png) (drag image to Comfy)
+![alt text](nodes_preview/attention_couple.png)
 
 ## Installation
 
