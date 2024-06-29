@@ -158,6 +158,9 @@ class AttentionCouple:
 
         new_model = model.clone()
 
+        if not isinstance(regions, list):
+            regions = [regions]
+
         num_conds = len(regions) + 1
 
         mask = [base_mask] + [
