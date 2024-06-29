@@ -1,0 +1,14 @@
+[project]
+name = "a8r8_comfyui_nodes"
+description = "Nodes: Base64Image Input Node, Base64Image Output Node. [a/A8R8](https://github.com/ramyma/a8r8) supporting nodes to integrate with ComfyUI"
+version = "1.0.0"
+license = "LICENSE"
+
+[project.urls]
+Repository = "https://github.com/ramyma/A8R8_ComfyUI_nodes"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "A8R8_ComfyUI_nodes"
+Icon = ""
