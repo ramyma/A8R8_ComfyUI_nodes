@@ -68,7 +68,7 @@ class AttentionCoupleRegion:
                 "mask": ("MASK",),
                 "weight": (
                     "FLOAT",
-                    {"default": 1.0, "min": 0.01, "max": 1.0, "step": 0.01},
+                    {"default": 1.0, "min": 0.01, "max": 100.0, "step": 0.01},
                 ),
             },
         }
@@ -86,15 +86,12 @@ class AttentionCoupleRegions:
     @classmethod
     def INPUT_TYPES(s):
         return {
-            "required": {},
-            "optional": {
-                **reduce(
-                    lambda acc, i: {**acc, f"region_{i}": ("ATTENTION_COUPLE_REGION",)},
-                    range(1, 12),
-                    {},
-                ),
-                "regions": ("ATTENTION_COUPLE_REGION",),
+            "required": {
+                "inputcount": ("INT", {"default": 2, "min": 2, "max": 1000, "step": 1}),
+                "region_1": ("ATTENTION_COUPLE_REGION", ),
+                "region_2": ("ATTENTION_COUPLE_REGION", ),
             },
+
         }
 
     RETURN_TYPES = ("ATTENTION_COUPLE_REGION",)
@@ -103,7 +100,7 @@ class AttentionCoupleRegions:
     FUNCTION = "attention_couple_regions"
     CATEGORY = "A8R8"
 
-    def attention_couple_regions(self, **kwargs):
+    def attention_couple_regions(self, inputcount, **kwargs):
         regions = kwargs.get("regions")
 
         if regions:
@@ -111,7 +108,8 @@ class AttentionCoupleRegions:
                 regions, list
             ), "Regions has to be a list of regions, a single item was passed to regions."
 
-        regions = [kwargs.get(f"region_{i}") for i in range(1, 12)] + (
+        regions_first = kwargs["region_1"]
+        regions = [kwargs.get(f"region_{i}") for i in range(1, inputcount+1)] + (
             regions if regions else []
         )
 
@@ -139,7 +137,7 @@ class AttentionCouple:
                     {
                         "default": 0.3,
                         "min": 0.01,
-                        "max": 1.0,
+                        "max": 100.0,
                         "step": 0.1,
                         "tooltip": "Base prompt strength.",
                     },
